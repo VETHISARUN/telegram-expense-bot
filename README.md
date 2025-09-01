@@ -1,92 +1,118 @@
-# Telegram Expense Tracker Bot
+# 💸 Telegram Expense Tracker Bot
 
-A bot that helps you track expenses in Google Sheets via Telegram.
+A bot that helps you track expenses in **Google Sheets** via **Telegram**.
+
+---
 
 ## 🛠 Setup Instructions
 
 ### 1. Prerequisites
-- Python 3.7+
+- Python **3.10+**
 - Telegram account
-- Google account
+- Google account with access to Google Sheets API
+
+---
 
 ### 2. Create a Virtual Environment (macOS/Linux)
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-```
+Windows:
+
+bash
+Copy code
+python -m venv venv
+venv\Scripts\activate
 3. Install Dependencies
-```bash
+bash
+Copy code
 pip install -r requirements.txt
-```
 Create requirements.txt with:
-```bash
+
+txt
+Copy code
 python-telegram-bot==20.0
 gspread
+oauth2client
 python-dotenv
-```
+matplotlib
 4. Set Up Google Sheets API
-```bash
 Visit Google Cloud Console
 
 Create a new project
 
-Enable the "Google Sheets API"
+Enable the Google Sheets API
 
-Go to "APIs & Services" → "Credentials"
+Go to APIs & Services → Credentials
 
-Click "Create credentials" → "Service Account"
+Click Create credentials → Service Account
 
 Grant Viewer or Editor access
 
-Click "Create Key" → Choose JSON → Download as credentials.json
+Click Create Key → JSON → Download as credentials.json
 
 Share your Google Sheet with the service account email (e.g., xyz@project.iam.gserviceaccount.com)
-```
+
 5. Create and Setup Your Google Sheet
-```
-Go to Google Sheets → Create new file → Name it myexpenses
+Go to Google Sheets → Create a new file → Name it myexpenses
 
-Rename first worksheet to: Sheet1
+Rename the first worksheet to: Sheet1
 
-Add header row:
+Add a header row:
 
-Date | Description | Amount
-```
+javascript
+Copy code
+Date | Category | Amount | Note
 6. Configure Environment
-Create .env file:
-```
+Create a .env file:
+
 env
+Copy code
 TOKEN=your_telegram_bot_token
 USER_NAME=your_telegram_username
 USER_ID=your_numeric_telegram_user_id
-```
+SPREADSHEET_ID=your_google_spreadsheet_id
 To get your Telegram USER_ID:
 
 Open Telegram
 
-Send message to your bot
+Send a message to your bot
 
-Temporarily add print(update.effective_user.id) in handler
+Temporarily add print(update.effective_user.id) in a handler
 
-Or use @userinfobot in Telegram
+Or use @userinfobot
 
 🚀 Run the Bot
 bash
-python app.py
+Copy code
+python bot.py
 💡 Usage Examples
-Add today's expense:
-Groceries, 150
-Add expense with date:
-01/06/2025, Train, 80
-Get today's total:
-today
-Get monthly total:
-month
-Test if bot is alive:
-ping
-
+Add today's expense
+bash
+Copy code
+/add 150 groceries lunch
+Add expense with custom date
+bash
+Copy code
+/add 01/06/2025 train 80
+Get today's total
+bash
+Copy code
+/summary today
+Get monthly total
+bash
+Copy code
+/summary month
+View chart of monthly expenses
+bash
+Copy code
+/chart
+Check if bot is alive
+bash
+Copy code
+/ping
 📝 Logs
-Unauthorized access attempts are logged to logs.csv with:
+Unauthorized access attempts are logged in logs.csv with:
 
 Date
 
@@ -101,17 +127,21 @@ First Name
 Last Name
 
 ⚠️ Important Notes
-Never commit credentials.json or .env to public repositories
+❌ Never commit credentials.json or .env to public repositories
 
-For production, consider cloud hosting (Azure, Render, etc.)
+🌐 For production, consider cloud hosting (Azure, Render, Railway, or Docker on a VM)
 
+🔒 Use .gitignore to protect secrets
 
-This README includes:
-- Clear section headings with emojis
-- Proper code blocks with syntax highlighting
-- Step-by-step instructions
-- Usage examples
-- Important warnings
-- Consistent formatting
+📌 Features
+✅ Add expenses by message
 
-You can copy this directly into your README.md file.
+✅ Automatic storage in Google Sheets
+
+✅ Daily, monthly, yearly summaries
+
+✅ Pie & bar chart visualizations
+
+✅ Optimized with in-memory cache + batch writes
+
+✅ Error handling with retries & backoff
