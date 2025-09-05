@@ -39,7 +39,7 @@ _totals_by_year: Dict[str, float] = defaultdict(float)     # 'YYYY' -> amount
 _totals_by_category: Dict[str, float] = defaultdict(float) # 'food' -> amount
 _recent = deque(maxlen=200)                                # most recent entries
 _processed_tx_ids = set()                                  # optional dedupe if needed
-# We will not rely on any DB id; keep for future use.
+
 
 
 def _date_to_month_key(date_s: str) -> str:
